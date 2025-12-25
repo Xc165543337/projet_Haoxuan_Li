@@ -1,0 +1,101 @@
+/* Card layout aligned with login design */
+.auth-wrapper {
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: grid;
+  gap: 1rem;
+}
+.auth-card h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+.auth-card .subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+.row {
+  display: grid;
+  gap: 0.4rem;
+}
+label {
+  font-weight: 600;
+}
+input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+}
+input.invalid {
+  border-color: #d32f2f;
+}
+.error-msg {
+  color: #d32f2f;
+  font-size: 0.75rem;
+}
+.submit-btn {
+  margin-top: 0.25rem;
+  padding: 0.7rem 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.submit-btn[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+.server-error {
+  color: #d32f2f;
+  margin: 0;
+  font-size: 0.85rem;
+}
+.switch-link {
+  text-align: center;
+  margin: 0;
+  font-size: 0.85rem;
+}
+.switch-link a {
+  color: #1976d2;
+  text-decoration: none;
+}
+.switch-link a:hover {
+  text-decoration: underline;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

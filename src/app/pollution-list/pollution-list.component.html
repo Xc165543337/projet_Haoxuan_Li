@@ -1,0 +1,109 @@
+<div class="pollution-list-container">
+  <div class="header">
+    <h2>📊 Liste des Pollutions</h2>
+    <button class="btn btn-primary" routerLink="/pollutions/create">➕ Nouvelle Déclaration</button>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="filter-row">
+      <div class="filter-group">
+        <label for="searchText">🔍 Recherche:</label>
+        <input
+          id="searchText"
+          type="text"
+          placeholder="Rechercher par titre ou lieu..."
+          [(ngModel)]="searchText"
+          (input)="applyFilters()"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label for="selectedType">📂 Type:</label>
+        <select id="selectedType" [(ngModel)]="selectedType" (change)="applyFilters()">
+          <option value="">Tous les types</option>
+          @for (type of pollutionTypes; track type) {
+            <option [value]="type">{{ type }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="selectedLevel">⚠️ Niveau:</label>
+        <select id="selectedLevel" [(ngModel)]="selectedLevel" (change)="applyFilters()">
+          <option value="">Tous les niveaux</option>
+          @for (level of pollutionLevels; track level) {
+            <option [value]="level">{{ level }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="dateFrom">📅 Du:</label>
+        <input id="dateFrom" type="date" [(ngModel)]="dateFrom" (change)="applyFilters()" />
+      </div>
+
+      <div class="filter-group">
+        <label for="dateTo">Au:</label>
+        <input id="dateTo" type="date" [(ngModel)]="dateTo" (change)="applyFilters()" />
+      </div>
+    </div>
+  </div>
+
+  @if (filteredPollutions.length > 0) {
+    <div class="pollutions-grid">
+      @for (pollution of filteredPollutions; track pollution.id) {
+        <div class="pollution-card" [class]="'severity-' + pollution.niveau">
+          <div class="card-header">
+            <h3>{{ pollution.titre }}</h3>
+            <div class="header-actions">
+              <button
+                class="btn-bookmark"
+                [class.bookmarked]="isBookmarked(pollution.id)"
+                (click)="toggleBookmark(pollution, $event)"
+                [title]="isBookmarked(pollution.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'"
+              >
+                {{ isBookmarked(pollution.id) ? '⭐' : '☆' }}
+              </button>
+              <span class="severity-badge" [class]="'severity-' + pollution.niveau">
+                {{ pollution.niveau }}
+              </span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="info-row">
+              <span class="label">📂 Type:</span>
+              <span class="value">{{ pollution.type }}</span>
+            </div>
+
+            <div class="info-row">
+              <span class="label">📍 Lieu:</span>
+              <span class="value">{{ pollution.lieu }}</span>
+            </div>
+
+            <div class="info-row">
+              <span class="label">📅 Date:</span>
+              <span class="value">{{ pollution.dateObservation | date: 'short' }}</span>
+            </div>
+
+            <div class="description">
+              {{ pollution.description | slice: 0 : 120 }}{{ pollution.description.length > 120 ? '...' : '' }}
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn-info" [routerLink]="['/pollutions/detail', pollution.id]">👁️ Voir</button>
+            <button class="btn-warning" [routerLink]="['/pollutions/edit', pollution.id]">✏️ Éditer</button>
+            <button class="btn-danger" (click)="deletePollution(pollution.id)">🗑️ Supprimer</button>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="no-data">
+      <p>😔 Aucune pollution trouvée</p>
+      <button class="btn-primary" routerLink="/pollutions/create">Créer la première déclaration</button>
+    </div>
+  }
+</div>

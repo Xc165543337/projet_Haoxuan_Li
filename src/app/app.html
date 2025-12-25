@@ -1,0 +1,38 @@
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-left">
+      <h1 class="app-title">{{ title() }}</h1>
+      <nav class="main-nav">
+        <a routerLink="/pollutions" routerLinkActive="active" class="nav-link">Pollutions</a>
+        <a routerLink="/users" routerLinkActive="active" class="nav-link">Utilisateurs</a>
+        <a routerLink="/favorites" routerLinkActive="active" class="nav-link favorites-link">
+          Favoris
+          @if (bookmarkCount(); as count) {
+            @if (count > 0) {
+              <span class="badge">{{ count }}</span>
+            }
+          }
+        </a>
+      </nav>
+    </div>
+    <div class="header-right">
+      @if (user(); as user) {
+        <div class="user-section">
+          <a routerLink="/profile" class="user-name-link" title="Voir mon profil">
+            {{ user.nomUtilisateur || user.email }}
+          </a>
+          <button class="logout-btn" (click)="logout()" title="Se déconnecter">Déconnexion</button>
+        </div>
+      } @else {
+        <div class="guest-section">
+          <span class="guest-name">Invité</span>
+          <a routerLink="/login" class="nav-link login-link">Connexion</a>
+        </div>
+      }
+    </div>
+  </header>
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+  <app-toast-container></app-toast-container>
+</div>

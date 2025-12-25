@@ -1,0 +1,183 @@
+<div class="pollution-form-container">
+  @if (pollution) {
+    <div class="form-card">
+      <div class="form-header">
+        <h2>{{ isEditMode ? 'Édition rapide' : 'Nouvelle Déclaration' }}</h2>
+        <p class="subtitle">
+          {{ isEditMode ? 'Modifier les informations de la pollution' : 'Déclarer une Pollution' }}
+        </p>
+      </div>
+
+      <form #pollutionForm="ngForm" (ngSubmit)="onSubmit()">
+        <!-- Titre -->
+        <div class="form-group">
+          <label for="titre">Titre de la pollution *</label>
+          <input
+            type="text"
+            id="titre"
+            name="titre"
+            [(ngModel)]="pollution.titre"
+            required
+            #titre="ngModel"
+            placeholder="Ex: Déversement d'huile près du ruisseau"
+            class="form-control"
+          />
+          @if (titre.invalid && titre.touched) {
+            <div class="error-message">Le titre est requis</div>
+          }
+        </div>
+
+        <!-- Type -->
+        <div class="form-group">
+          <label for="type">Type de pollution *</label>
+          <select id="type" name="type" [(ngModel)]="pollution.type" required #type="ngModel" class="form-control">
+            <option value="">-- Sélectionnez un type --</option>
+            @for (t of types; track t) {
+              <option [value]="t">{{ t }}</option>
+            }
+          </select>
+          @if (type.invalid && type.touched) {
+            <div class="error-message">Le type est requis</div>
+          }
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description">Description *</label>
+          <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="pollution.description"
+            required
+            #description="ngModel"
+            rows="4"
+            placeholder="Ex: Taches huileuses visibles sur le courant."
+            class="form-control"
+          ></textarea>
+          @if (description.invalid && description.touched) {
+            <div class="error-message">La description est requise</div>
+          }
+        </div>
+
+        <!-- Date -->
+        <div class="form-group">
+          <label for="dateObservation">Date de l'observation *</label>
+          <input
+            type="date"
+            id="dateObservation"
+            name="dateObservation"
+            [(ngModel)]="pollution.dateObservation"
+            required
+            #dateObservation="ngModel"
+            class="form-control"
+          />
+          @if (dateObservation.invalid && dateObservation.touched) {
+            <div class="error-message">La date est requise</div>
+          }
+        </div>
+
+        <!-- Lieu -->
+        <div class="form-group">
+          <label for="lieu">Lieu *</label>
+          <input
+            type="text"
+            id="lieu"
+            name="lieu"
+            [(ngModel)]="pollution.lieu"
+            required
+            #lieu="ngModel"
+            placeholder="Ex: Rivière des Prés"
+            class="form-control"
+          />
+          @if (lieu.invalid && lieu.touched) {
+            <div class="error-message">Le lieu est requis</div>
+          }
+        </div>
+
+        <!-- Coordonnées -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="latitude">Latitude *</label>
+            <input
+              type="number"
+              id="latitude"
+              name="latitude"
+              [(ngModel)]="pollution.latitude"
+              required
+              step="0.000001"
+              placeholder="48.8566"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="longitude">Longitude *</label>
+            <input
+              type="number"
+              id="longitude"
+              name="longitude"
+              required
+              step="0.000001"
+              placeholder="2.3522"
+              class="form-control"
+              name="longitude"
+              [(ngModel)]="pollution.longitude"
+            />
+          </div>
+        </div>
+
+        <!-- Niveau -->
+        <div class="form-group">
+          <label for="niveau">Niveau de gravité *</label>
+          <select
+            id="niveau"
+            name="niveau"
+            [(ngModel)]="pollution.niveau"
+            required
+            #niveau="ngModel"
+            class="form-control"
+          >
+            <option value="">-- Sélectionnez un niveau --</option>
+            @for (n of niveaux; track n) {
+              <option [value]="n">{{ n }}</option>
+            }
+          </select>
+          @if (niveau.invalid && niveau.touched) {
+            <div class="error-message">Le niveau est requis</div>
+          }
+        </div>
+
+        <!-- Photo (Optional) -->
+        <div class="form-group optional">
+          <label for="photoUrl">Photo (URL)</label>
+          <input
+            type="url"
+            id="photoUrl"
+            name="photoUrl"
+            [(ngModel)]="pollution.photoUrl"
+            #photoUrl="ngModel"
+            placeholder="https://example.com/photo.jpg"
+            class="form-control"
+          />
+          <small class="helper-text">Optionnel - URL vers une photo de la pollution</small>
+
+          <!-- Image Preview -->
+          @if (isValidImageUrl(pollution.photoUrl)) {
+            <div class="image-preview">
+              <img [src]="pollution.photoUrl" alt="Aperçu de la photo" />
+              <button type="button" class="remove-image" (click)="pollution.photoUrl = ''" title="Supprimer l'image">
+                ❌
+              </button>
+            </div>
+          }
+        </div>
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="onCancel()">Annuler</button>
+          <button type="submit" class="btn btn-primary" [disabled]="pollutionForm.invalid">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

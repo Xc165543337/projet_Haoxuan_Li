@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: tp5-frontend
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist/TP5/browser
+    pullRequestPreviewsEnabled: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

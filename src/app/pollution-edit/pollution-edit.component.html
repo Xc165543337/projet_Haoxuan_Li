@@ -1,0 +1,11 @@
+<div class="edit-container">
+  <h2>✏️ Modifier la Pollution</h2>
+  @if (pollution) {
+    <app-pollution-form [pollution]="pollution" (saveEvent)="onSave($event)" (cancelEvent)="onCancel()">
+    </app-pollution-form>
+  } @else if (!loading) {
+    <div class="error-message">
+      <p>Pollution non trouvée</p>
+    </div>
+  }
+</div>

@@ -1,0 +1,79 @@
+<div class="auth-wrapper">
+  <form class="auth-card" (ngSubmit)="submit()" [formGroup]="form" novalidate>
+    <h2>Créer un compte</h2>
+    <p class="subtitle">Renseignez vos informations pour commencer.</p>
+
+    <div class="row">
+      <label for="nom">Nom</label>
+      <input id="nom" type="text" formControlName="nom" [class.invalid]="submitted && form.controls.nom.invalid" />
+      @if (submitted && form.controls.nom.invalid) {
+        <small class="error-msg"> Le nom est requis (min 2 caractères). </small>
+      }
+    </div>
+
+    <div class="row">
+      <label for="prenom">Prénom</label>
+      <input
+        id="prenom"
+        type="text"
+        formControlName="prenom"
+        [class.invalid]="submitted && form.controls.prenom.invalid"
+      />
+      @if (submitted && form.controls.prenom.invalid) {
+        <small class="error-msg"> Le prénom est requis (min 2 caractères). </small>
+      }
+    </div>
+
+    <div class="row">
+      <label for="nomUtilisateur">Nom d'utilisateur</label>
+      <input
+        id="nomUtilisateur"
+        type="text"
+        formControlName="nomUtilisateur"
+        [class.invalid]="submitted && form.controls.nomUtilisateur.invalid"
+      />
+      @if (submitted && form.controls.nomUtilisateur.invalid) {
+        <small class="error-msg"> 3-50 caractères (lettres, chiffres, - ou _). </small>
+      }
+    </div>
+
+    <div class="row">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        [class.invalid]="submitted && form.controls.email.invalid"
+      />
+      @if (submitted && form.controls.email.invalid) {
+        <small class="error-msg"> Adresse email valide requise. </small>
+      }
+    </div>
+
+    <div class="row">
+      <label for="motDePasse">Mot de passe</label>
+      <input
+        id="motDePasse"
+        type="password"
+        formControlName="motDePasse"
+        [class.invalid]="submitted && form.controls.motDePasse.invalid"
+      />
+      @if (submitted && form.controls.motDePasse.invalid) {
+        <small class="error-msg"> Minimum 6 caractères. </small>
+      }
+    </div>
+
+    <button class="submit-btn" type="submit" [disabled]="loading() || form.invalid">
+      @if (!loading()) {
+        <span>S'inscrire</span>
+      }
+      @if (loading()) {
+        <span class="spinner" aria-label="Chargement"></span>
+      }
+    </button>
+    @if (error(); as error) {
+      <p class="server-error">{{ error }}</p>
+    }
+    <p class="switch-link">Déjà un compte ? <a routerLink="/login">Se connecter</a></p>
+  </form>
+</div>

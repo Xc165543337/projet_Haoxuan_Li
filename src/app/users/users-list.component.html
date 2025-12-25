@@ -1,0 +1,44 @@
+<div class="users-container">
+  <div class="users-header">
+    <h1>Utilisateurs Connectés</h1>
+    <a routerLink="/pollutions" class="back-link">← Retour</a>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Chargement des utilisateurs...</p>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="error-banner">
+      {{ error() }}
+      <button class="btn btn-secondary" (click)="loadUsers()">Réessayer</button>
+    </div>
+  }
+
+  @if (!loading() && !error()) {
+    <div class="users-grid">
+      @for (user of users(); track user.id) {
+        <div class="user-card">
+          <div class="user-avatar">{{ user.prenom.charAt(0) }}{{ user.nom.charAt(0) }}</div>
+          <div class="user-info">
+            <h3 class="user-name">{{ user.prenom }} {{ user.nom }}</h3>
+            <p class="user-username">&#64;{{ user.nomUtilisateur }}</p>
+            <p class="user-email">{{ user.email }}</p>
+            @if (user.dateCreation) {
+              <p class="user-date">Membre depuis le {{ user.dateCreation | date: 'short' }}</p>
+            }
+          </div>
+        </div>
+      }
+
+      @if (users().length === 0) {
+        <div class="no-users">
+          <p>Aucun utilisateur trouvé.</p>
+        </div>
+      }
+    </div>
+  }
+</div>

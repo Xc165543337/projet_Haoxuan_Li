@@ -1,0 +1,133 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="profile-header">
+      <h1>Mon Profil</h1>
+      <a routerLink="/pollutions" class="back-link">← Retour</a>
+    </div>
+
+    @if (user(); as user) {
+      <div class="profile-content">
+        @if (!editMode()) {
+          <div class="profile-info">
+            <div class="info-row">
+              <span class="label">Prénom :</span>
+              <span class="value">{{ user.prenom }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Nom :</span>
+              <span class="value">{{ user.nom }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Nom d'utilisateur :</span>
+              <span class="value">{{ user.nomUtilisateur }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Email :</span>
+              <span class="value">{{ user.email }}</span>
+            </div>
+            @if (user.dateCreation) {
+              <div class="info-row">
+                <span class="label">Membre depuis :</span>
+                <span class="value">{{ user.dateCreation | date: 'short' }}</span>
+              </div>
+            }
+            @if (user.dateModification) {
+              <div class="info-row">
+                <span class="label">Dernière modification :</span>
+                <span class="value">{{ user.dateModification | date: 'short' }}</span>
+              </div>
+            }
+
+            <div class="actions">
+              <button class="btn btn-primary" (click)="toggleEditMode()">Modifier mon profil</button>
+            </div>
+          </div>
+        }
+
+        @if (editMode()) {
+          <form [formGroup]="form" (ngSubmit)="submit()" class="profile-form">
+            <div class="form-group">
+              <label for="prenom">Prénom *</label>
+              <input
+                type="text"
+                id="prenom"
+                formControlName="prenom"
+                placeholder="Votre prénom"
+                [class.invalid]="form.controls.prenom.invalid && form.controls.prenom.touched"
+              />
+              @if (form.controls.prenom.invalid && form.controls.prenom.touched) {
+                <span class="error-message"> Le prénom doit contenir au moins 2 caractères. </span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="nom">Nom *</label>
+              <input
+                type="text"
+                id="nom"
+                formControlName="nom"
+                placeholder="Votre nom"
+                [class.invalid]="form.controls.nom.invalid && form.controls.nom.touched"
+              />
+              @if (form.controls.nom.invalid && form.controls.nom.touched) {
+                <span class="error-message"> Le nom doit contenir au moins 2 caractères. </span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="nomUtilisateur">Nom d'utilisateur *</label>
+              <input
+                type="text"
+                id="nomUtilisateur"
+                formControlName="nomUtilisateur"
+                placeholder="Votre nom d'utilisateur"
+                [class.invalid]="form.controls.nomUtilisateur.invalid && form.controls.nomUtilisateur.touched"
+              />
+              @if (form.controls.nomUtilisateur.invalid && form.controls.nomUtilisateur.touched) {
+                <span class="error-message"> Le nom d'utilisateur doit contenir au moins 3 caractères. </span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                placeholder="votre@email.com"
+                [class.invalid]="form.controls.email.invalid && form.controls.email.touched"
+              />
+              @if (form.controls.email.invalid && form.controls.email.touched) {
+                <span class="error-message"> Veuillez entrer une adresse email valide. </span>
+              }
+            </div>
+
+            @if (error()) {
+              <div class="error-banner">
+                {{ error() }}
+              </div>
+            }
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading()">
+                {{ loading() ? 'Enregistrement...' : 'Enregistrer' }}
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Annuler</button>
+            </div>
+          </form>
+        }
+
+        <div class="danger-zone">
+          <h2>Zone dangereuse</h2>
+          <p>La suppression de votre compte est irréversible.</p>
+          <button class="btn btn-danger" (click)="deleteAccount()" [disabled]="loading()">Supprimer mon compte</button>
+        </div>
+      </div>
+    } @else {
+      <div class="not-logged-in">
+        <p>Vous devez être connecté pour voir votre profil.</p>
+        <a routerLink="/login" class="btn btn-primary">Se connecter</a>
+      </div>
+    }
+  </div>
+</div>

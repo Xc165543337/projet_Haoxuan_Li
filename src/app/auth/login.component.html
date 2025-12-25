@@ -1,0 +1,68 @@
+<section class="login-page">
+  <div class="card">
+    <header>
+      <h1>Bienvenue</h1>
+      <p>Connectez-vous avec votre email ou nom d'utilisateur</p>
+    </header>
+
+    <form class="form" (ngSubmit)="submit()" [formGroup]="form" novalidate>
+      <div class="field">
+        <label for="identifiant">Identifiant</label>
+        <input
+          id="identifiant"
+          type="text"
+          formControlName="identifiant"
+          placeholder="email ou nom d'utilisateur"
+          [class.invalid]="
+            form.controls.identifiant.invalid && (form.controls.identifiant.dirty || form.controls.identifiant.touched)
+          "
+        />
+        <small class="hint">Ex: jean.dupont&#64;mail.com ou jdupont</small>
+        @if (
+          form.controls.identifiant.hasError('required') &&
+          (form.controls.identifiant.dirty || form.controls.identifiant.touched)
+        ) {
+          <small class="error"> L'identifiant est requis. </small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="motDePasse">Mot de passe</label>
+        <input
+          id="motDePasse"
+          type="password"
+          formControlName="motDePasse"
+          placeholder="Votre mot de passe"
+          [class.invalid]="
+            form.controls.motDePasse.invalid && (form.controls.motDePasse.dirty || form.controls.motDePasse.touched)
+          "
+        />
+        @if (
+          form.controls.motDePasse.hasError('required') &&
+          (form.controls.motDePasse.dirty || form.controls.motDePasse.touched)
+        ) {
+          <small class="error"> Mot de passe requis. </small>
+        }
+        @if (
+          form.controls.motDePasse.hasError('minlength') &&
+          (form.controls.motDePasse.dirty || form.controls.motDePasse.touched)
+        ) {
+          <small class="error"> Minimum 6 caractères. </small>
+        }
+      </div>
+
+      <button class="submit" type="submit" [disabled]="loading() || form.invalid">
+        {{ loading() ? 'Connexion…' : 'Se connecter' }}
+      </button>
+
+      @if (error(); as error) {
+        <p class="error global">{{ error }}</p>
+      }
+
+      <p class="alt">
+        Pas encore de compte ?
+        <a routerLink="/register">Créer un compte</a>
+      </p>
+    </form>
+  </div>
+</section>

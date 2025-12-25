@@ -1,0 +1,62 @@
+<div class="favorites-container">
+  <div class="favorites-header">
+    <h1>Mes Favoris</h1>
+    @if ((bookmarks$ | async)?.length) {
+      <button class="btn-clear" (click)="clearAll()">Tout supprimer</button>
+    }
+  </div>
+
+  @if (bookmarks$ | async; as bookmarks) {
+    @if (bookmarks.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">⭐</div>
+        <h2>Aucun favori</h2>
+        <p>Vous n'avez pas encore ajouté de pollutions à vos favoris.</p>
+        <a routerLink="/pollutions" class="btn-primary"> Voir les pollutions </a>
+      </div>
+    } @else {
+      <div class="bookmarks-grid">
+        @for (pollution of bookmarks; track pollution.id) {
+          <div class="bookmark-card">
+            <div class="card-header">
+              <h3>{{ pollution.titre }}</h3>
+              <button class="btn-remove" (click)="removeBookmark(pollution.id)" title="Retirer des favoris">❌</button>
+            </div>
+
+            <div class="card-content">
+              <div class="info-row">
+                <span class="label">Type:</span>
+                <span class="badge badge-type">{{ pollution.type }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Niveau:</span>
+                <span class="badge" [class]="'badge-' + pollution.niveau.toLowerCase()">
+                  {{ pollution.niveau }}
+                </span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Lieu:</span>
+                <span>{{ pollution.lieu }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Date:</span>
+                <span>{{ pollution.dateObservation | date: 'short' }}</span>
+              </div>
+
+              @if (pollution.description) {
+                <p class="description">{{ pollution.description }}</p>
+              }
+            </div>
+
+            <div class="card-actions">
+              <button class="btn-view" (click)="viewDetails(pollution.id)">Voir les détails</button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

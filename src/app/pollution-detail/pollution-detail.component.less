@@ -1,0 +1,276 @@
+/* Simplified and valid LESS structure to reduce size and fix nesting */
+.detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.detail-container .detail-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.detail-container .detail-card .header {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  padding: 2rem;
+  color: #fff;
+  text-align: center;
+}
+.detail-container .detail-card .header h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+.detail-container .detail-card .header .success-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1f7a1f;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 22px;
+  font-weight: 600;
+}
+.detail-container .detail-card .header .success-badge .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  color: #1f7a1f;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.detail-container .detail-card .section {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+.detail-container .detail-card .section:last-of-type {
+  border-bottom: none;
+}
+.detail-container .detail-card .section.next-steps {
+  background: #fff8e1;
+  border-left: 4px solid #c25f0c;
+}
+.detail-container .detail-card .section .section-header {
+  margin-bottom: 1.5rem;
+}
+.detail-container .detail-card .section .section-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #1a202c;
+  font-weight: 600;
+}
+
+.detail-container .detail-card .section .section-content .info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.detail-container .detail-card .section .section-content .info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.detail-container .detail-card .section .section-content .info-item.full-width {
+  grid-column: 1 / -1;
+}
+.detail-container .detail-card .section .section-content .info-item label {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 0.9rem;
+}
+.detail-container .detail-card .section .section-content .info-item span {
+  color: #1a202c;
+  font-size: 1rem;
+}
+.detail-container .detail-card .section .section-content .info-item span.type-badge {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  border-radius: 18px;
+  font-weight: 600;
+  width: fit-content;
+}
+.detail-container .detail-card .section .section-content .info-item span.type-badge.type-chimique {
+  background: #ffcdd2;
+  color: #8b0000;
+}
+.detail-container .detail-card .section .section-content .info-item span.type-badge.type-plastique {
+  background: #bbdefb;
+  color: #0d47a1;
+}
+.detail-container .detail-card .section .section-content .info-item span.type-badge.type-air {
+  background: #b2dfdb;
+  color: #004d40;
+}
+.detail-container .detail-card .section .section-content .info-item span.type-badge.type-eau {
+  background: #bbdefb;
+  color: #0d47a1;
+}
+.detail-container .detail-card .section .section-content .info-item span.type-badge.type-sol {
+  background: #fff9c4;
+  color: #5d4037;
+}
+.detail-container .detail-card .section .section-content .info-item span.type-badge.type-sonore {
+  background: #f8bbd0;
+  color: #880e4f;
+}
+.detail-container .detail-card .section .section-content .info-item span.type-badge.type-visuelle {
+  background: #e1bee7;
+  color: #4a148c;
+}
+.detail-container .detail-card .section .section-content .info-item span.type-badge.type-autre {
+  background: #e2e8f0;
+  color: #1a202c;
+}
+.detail-container .detail-card .section .section-content .info-item .coordinates {
+  font-family: 'Courier New', monospace;
+  background: #e2e8f0;
+  color: #1a202c;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.detail-container .detail-card .section .description-text {
+  background: #e2e8f0;
+  padding: 1rem;
+  border-radius: 8px;
+  line-height: 1.6;
+  color: #1a202c;
+  margin: 0;
+}
+.detail-container .detail-card .section .steps-list {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+.detail-container .detail-card .section .steps-list li {
+  color: #5d4037;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+.detail-container .detail-card .section .steps-list li:last-child {
+  margin-bottom: 0;
+}
+
+.detail-container .detail-card .photo-section {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  background: #f7fafc;
+}
+.detail-container .detail-card .photo-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.detail-container .detail-card .actions {
+  display: flex;
+  gap: 1rem;
+  padding: 2rem;
+  background: #f7fafc;
+}
+.detail-container .detail-card .actions .btn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.detail-container .detail-card .actions .btn.btn-secondary {
+  background: #a0aec0;
+  color: #1a202c;
+}
+.detail-container .detail-card .actions .btn.btn-secondary:hover {
+  background: #8a9bb0;
+}
+.detail-container .detail-card .actions .btn.btn-warning {
+  background: #a4510b;
+  color: #fff;
+}
+.detail-container .detail-card .actions .btn.btn-warning:hover {
+  background: #a4510b;
+}
+.detail-container .detail-card .actions .btn.btn-danger {
+  background: #c53030;
+  color: #fff;
+}
+.detail-container .detail-card .actions .btn.btn-danger:hover {
+  background: #9b2c2c;
+}
+
+.detail-container .loading-state,
+.detail-container .error-state {
+  background: #fff;
+  padding: 4rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+}
+.detail-container .loading-state .spinner,
+.detail-container .error-state .spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1rem;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+.detail-container .loading-state p,
+.detail-container .error-state p {
+  font-size: 1.2rem;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+}
+.detail-container .loading-state .btn-primary,
+.detail-container .error-state .btn-primary {
+  background: linear-gradient(135deg, #4b5bd3 0%, #5a3fbf 100%);
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.detail-container .loading-state .btn-primary:hover,
+.detail-container .error-state .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(75, 91, 211, 0.4);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-container {
+    padding: 1rem;
+  }
+  .detail-container .detail-card .section {
+    padding: 1.5rem;
+  }
+  .detail-container .detail-card .section .section-content .info-grid {
+    grid-template-columns: 1fr;
+  }
+  .detail-container .detail-card .actions {
+    flex-direction: column;
+  }
+}
