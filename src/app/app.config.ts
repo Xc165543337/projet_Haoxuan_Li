@@ -1,6 +1,8 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http'
 import {
+  APP_INITIALIZER,
   ApplicationConfig,
+  inject,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core'
@@ -9,11 +11,21 @@ import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin'
 import { withNgxsStoragePlugin } from '@ngxs/storage-plugin'
 import { provideStore } from '@ngxs/store'
 import { jwtInterceptor } from './interceptors/jwt.interceptor'
+import { AuthInitService } from './services/auth-init.service'
 import { AuthState } from './store/auth.state'
 import { BookmarkState } from './store/bookmark.state'
 
 import { environment } from '../environments/environment.prod'
 import { routes } from './app.routes'
+
+/**
+ * Initialize authentication on app startup.
+ * Attempts to restore session using HttpOnly refresh token cookie.
+ */
+function initializeAuth(): () => Promise<void> {
+  const authInitService = inject(AuthInitService)
+  return () => authInitService.initializeAuth()
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,5 +45,11 @@ export const appConfig: ApplicationConfig = {
         disabled: environment.production,
       })
     ),
+    // Initialize auth on app startup - restore session from refresh token cookie
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeAuth,
+      multi: true,
+    },
   ],
 }

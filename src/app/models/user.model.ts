@@ -31,6 +31,7 @@ export interface LoginResponse {
 }
 
 export interface RefreshTokenResponse {
+  user: User
   accessToken: string
   accessTokenExpiresIn: string
 }
