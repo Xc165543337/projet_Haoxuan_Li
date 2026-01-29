@@ -131,7 +131,8 @@ export class PollutionFormComponent implements OnInit {
     const longitude = control.get('longitude')?.value
 
     const hasAddress = adresse && adresse.trim().length > 0
-    const hasGps = latitude != null && longitude != null && !isNaN(latitude) && !isNaN(longitude)
+    const hasGps =
+      latitude != null && longitude != null && !Number.isNaN(latitude) && !Number.isNaN(longitude)
 
     if (!hasAddress && !hasGps) {
       return { locationRequired: true }

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common'
 import { Component, computed, inject, input } from '@angular/core'
 import { rxResource } from '@angular/core/rxjs-interop'
 import { Router, RouterLink } from '@angular/router'
+import { environment } from '../../environments/environment'
 import { PollutionService } from '../services/pollution.service'
 import { ToastService } from '../services/toast.service'
 
@@ -61,5 +62,18 @@ export class PollutionDetailComponent {
         },
       })
     }
+  }
+
+  /**
+   * Resolves photo URL for display.
+   * Backend-hosted photos start with '/photos/' and need the API base URL prepended.
+   * External URLs (http/https) are returned as-is.
+   */
+  getPhotoUrl(url: string | null | undefined): string {
+    if (!url) return ''
+    if (url.startsWith('/photos/')) {
+      return `${environment.apiBaseUrl}/pollution${url}`
+    }
+    return url
   }
 }

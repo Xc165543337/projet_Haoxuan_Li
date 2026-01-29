@@ -12,7 +12,7 @@
       <!-- Photo Section (if exists) -->
       @if (poll.photoUrl) {
         <div class="photo-section">
-          <img [src]="poll.photoUrl" alt="Photo de la pollution" />
+          <img [src]="getPhotoUrl(poll.photoUrl)" alt="Photo de la pollution" />
         </div>
       }
 
